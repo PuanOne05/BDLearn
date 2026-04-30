@@ -1,0 +1,912 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>BDLearn | Dashboard</title>
+    <!-- Google Fonts + Font Awesome Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #F5F7FB;
+            color: #1A1F36;
+        }
+
+        /* Sidebar Styles */
+        .sidebar {
+            position: fixed;
+            left: 0;
+            top: 0;
+            width: 280px;
+            height: 100%;
+            background: white;
+            box-shadow: 2px 0 20px rgba(0, 0, 0, 0.05);
+            padding: 32px 24px;
+            transition: all 0.3s ease;
+            z-index: 100;
+            overflow-y: auto;
+        }
+
+        .logo-area {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            margin-bottom: 48px;
+            padding-bottom: 24px;
+            border-bottom: 1px solid #E9EDF2;
+        }
+
+        .logo-area img {
+            height: 50px;
+            width: auto;
+        }
+
+        .logo-area h2 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #314577, #4A6FA5);
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+        }
+
+        .nav-menu {
+            list-style: none;
+        }
+
+        .nav-item {
+            margin-bottom: 8px;
+        }
+
+        .nav-link {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            padding: 12px 16px;
+            border-radius: 12px;
+            color: #6C7A96;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .nav-link i {
+            width: 22px;
+            font-size: 1.1rem;
+        }
+
+        .nav-link:hover {
+            background: #F0F4FF;
+            color: #314577;
+            transform: translateX(4px);
+        }
+
+        .nav-link.active {
+            background: linear-gradient(135deg, #314577, #4A6FA5);
+            color: white;
+            box-shadow: 0 4px 12px rgba(49, 69, 119, 0.25);
+        }
+
+        /* Main Content */
+        .main-content {
+            margin-left: 280px;
+            min-height: 100vh;
+            padding: 24px 32px;
+        }
+
+        /* Top Bar */
+        .top-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 32px;
+            background: white;
+            padding: 16px 24px;
+            border-radius: 1rem;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+        }
+
+        .page-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #1A1F36;
+        }
+
+        .user-profile {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            cursor: pointer;
+            padding: 8px 16px;
+            border-radius: 40px;
+            background: #F5F7FB;
+            transition: 0.2s;
+        }
+
+        .user-info:hover {
+            background: #E9EDF2;
+        }
+
+        .user-avatar {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, #314577, #4A6FA5);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 600;
+            font-size: 1rem;
+        }
+
+        .user-details {
+            text-align: right;
+        }
+
+        .user-name {
+            font-weight: 700;
+            font-size: 0.9rem;
+            color: #1A1F36;
+        }
+
+        .user-email {
+            font-size: 0.75rem;
+            color: #6C7A96;
+        }
+
+        /* Dropdown Menu */
+        .dropdown-menu {
+            position: absolute;
+            top: 70px;
+            right: 32px;
+            background: white;
+            border-radius: 1rem;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            width: 200px;
+            overflow: hidden;
+            display: none;
+            z-index: 200;
+        }
+
+        .dropdown-menu.show {
+            display: block;
+            animation: fadeInDown 0.2s ease;
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .dropdown-item {
+            padding: 12px 20px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            color: #4B5563;
+            text-decoration: none;
+            transition: 0.2s;
+            cursor: pointer;
+        }
+
+        .dropdown-item:hover {
+            background: #F5F7FB;
+            color: #314577;
+        }
+
+        .dropdown-item.logout {
+            color: #EF4444;
+            border-top: 1px solid #E9EDF2;
+        }
+
+        .dropdown-item.logout:hover {
+            background: #FEE2E2;
+        }
+
+        /* Welcome Card */
+        .welcome-card {
+            background: linear-gradient(135deg, #314577, #4A6FA5);
+            border-radius: 1.5rem;
+            padding: 32px;
+            margin-bottom: 32px;
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .welcome-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        .welcome-card h1 {
+            font-size: 1.8rem;
+            margin-bottom: 8px;
+        }
+
+        .welcome-card p {
+            opacity: 0.9;
+            font-size: 0.95rem;
+        }
+
+        /* Content Grid */
+        .content-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 24px;
+        }
+
+        .content-card {
+            background: white;
+            border-radius: 1rem;
+            padding: 24px;
+            transition: all 0.3s ease;
+        }
+
+        .content-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 12px;
+            border-bottom: 2px solid #E9EDF2;
+        }
+
+        .card-header h3 {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: #1A1F36;
+        }
+
+        .card-header i {
+            color: #314577;
+            font-size: 1.2rem;
+        }
+
+        /* Grid Styles untuk Materi, Video, dan Quiz */
+        .item-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+            gap: 16px;
+            max-height: 500px;
+            overflow-y: auto;
+            padding-right: 12px;
+        }
+
+        .item-grid::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .item-grid::-webkit-scrollbar-track {
+            background: #E9EDF2;
+            border-radius: 10px;
+        }
+
+        .item-grid::-webkit-scrollbar-thumb {
+            background: #314577;
+            border-radius: 10px;
+        }
+
+        .grid-item {
+            background: #F5F7FB;
+            border-radius: 0.75rem;
+            padding: 16px 12px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            border: 1px solid #E9EDF2;
+        }
+
+        .grid-item:hover {
+            background: #EFF6FF;
+            transform: translateY(-2px);
+            border-color: #314577;
+            box-shadow: 0 4px 8px rgba(49, 69, 119, 0.1);
+        }
+
+        .item-title {
+            font-weight: 600;
+            font-size: 0.9rem;
+            color: #1A1F36;
+        }
+
+        /* Preview Grid untuk Beranda (hanya 3 item, TANPA icon panah) */
+        .preview-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 12px;
+        }
+
+        .preview-item {
+            background: #F5F7FB;
+            border-radius: 0.75rem;
+            padding: 14px 16px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            border: 1px solid #E9EDF2;
+        }
+
+        .preview-item:hover {
+            background: #EFF6FF;
+            transform: translateX(4px);
+            border-color: #314577;
+        }
+
+        .preview-title {
+            font-weight: 600;
+            font-size: 0.9rem;
+            color: #1A1F36;
+        }
+
+        .lihat-semua {
+            margin-top: 16px;
+            text-align: center;
+            padding-top: 12px;
+            border-top: 1px solid #E9EDF2;
+        }
+
+        .lihat-semua a {
+            color: #314577;
+            text-decoration: none;
+            font-size: 0.85rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .lihat-semua a:hover {
+            color: #25355b;
+            text-decoration: underline;
+        }
+
+        /* Saweria Section */
+        .saweria-card {
+            background: linear-gradient(135deg, #FFD700, #FFA500);
+            border-radius: 1rem;
+            padding: 20px;
+            text-align: center;
+            color: #fff;
+        }
+
+        .saweria-card i {
+            font-size: 2rem;
+            margin-bottom: 12px;
+        }
+
+        .saweria-card {
+            background: linear-gradient(135deg, #FFD700, #FFA500);
+            border-radius: 1rem;
+            padding: 20px;
+            text-align: center;
+            color: #fff;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .saweria-card i {
+            font-size: 2rem;
+            margin-bottom: 12px;
+        }
+
+        .saweria-card h4 {
+            margin-bottom: 8px;
+        }
+
+        .saweria-card p {
+            margin-bottom: 16px;
+        }
+
+        .btn-saweria {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            background: white;
+            color: #FFA500;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 40px;
+            font-weight: 600;
+            margin: 0 auto;
+            width: auto;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .btn-saweria:hover {
+            transform: scale(1.02);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .sidebar {
+                transform: translateX(-100%);
+            }
+            .sidebar.mobile-open {
+                transform: translateX(0);
+            }
+            .main-content {
+                margin-left: 0;
+            }
+            .menu-toggle {
+                display: block;
+                position: fixed;
+                top: 20px;
+                left: 20px;
+                z-index: 101;
+                background: #314577;
+                color: white;
+                padding: 10px;
+                border-radius: 8px;
+                cursor: pointer;
+            }
+            .top-bar {
+                margin-top: 50px;
+            }
+            .item-grid {
+                grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            }
+        }
+
+        @media (min-width: 769px) {
+            .menu-toggle {
+                display: none;
+            }
+        }
+
+        .menu-toggle {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <!-- Mobile Menu Toggle -->
+    <div class="menu-toggle" id="menuToggle">
+        <i class="fas fa-bars"></i>
+    </div>
+
+    <!-- Sidebar -->
+    <div class="sidebar" id="sidebar">
+        <div class="logo-area">
+            <img src="../BDLearn.png" alt="BDLearn Logo">
+        </div>
+        <ul class="nav-menu">
+            <li class="nav-item">
+                <a class="nav-link active" data-page="beranda">
+                    <i class="fas fa-home"></i> Beranda
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" data-page="materi">
+                    <i class="fas fa-book"></i> Materi Pelajaran
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" data-page="video">
+                    <i class="fas fa-video"></i> Video Pembelajaran
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" data-page="soal">
+                    <i class="fas fa-puzzle-piece"></i> Soal Latihan
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" data-page="saweria">
+                    <i class="fas fa-coffee"></i> Saweria
+                </a>
+            </li>
+        </ul>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <!-- Top Bar -->
+        <div class="top-bar">
+            <h1 class="page-title" id="pageTitle">Dashboard</h1>
+            <div class="user-profile">
+                <div class="user-info" id="userInfoBtn">
+                    <div class="user-avatar" id="userAvatar">A</div>
+                    <div class="user-details">
+                        <div class="user-name" id="userName">Username</div>
+                        <div class="user-email" id="userEmail">Emailpengguna@gmail.com</div>
+                    </div>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+            </div>
+        </div>
+
+        <!-- Dropdown Menu -->
+        <div class="dropdown-menu" id="dropdownMenu">
+            <div class="dropdown-item logout" id="logoutBtn">
+                <i class="fas fa-sign-out-alt"></i> Logout
+            </div>
+        </div>
+
+        <!-- Dynamic Content Area -->
+        <div id="dynamicContent"></div>
+    </div>
+
+    <script>
+        (function() {
+            // Generate grid items from Bab 1 to Bab 17
+            function generateMateriGrid() {
+                let html = '';
+                for (let i = 1; i <= 17; i++) {
+                    html += `
+                        <div class="grid-item" data-materi="bab${i}">
+                            <span class="item-title">Bab ${i}</span>
+                            <i class="fas fa-chevron-right" style="color: #314577; font-size: 0.8rem;"></i>
+                        </div>
+                    `;
+                }
+                return html;
+            }
+
+            function generateVideoGrid() {
+                let html = '';
+                for (let i = 1; i <= 17; i++) {
+                    html += `
+                        <div class="grid-item" data-video="bab${i}">
+                            <span class="item-title">Video Bab ${i}</span>
+                            <i class="fas fa-chevron-right" style="color: #314577; font-size: 0.8rem;"></i>
+                        </div>
+                    `;
+                }
+                return html;
+            }
+
+            function generateQuizGrid() {
+                let html = '';
+                for (let i = 1; i <= 17; i++) {
+                    html += `
+                        <div class="grid-item" data-quiz="bab${i}">
+                            <span class="item-title">Kuis Bab ${i}</span>
+                            <i class="fas fa-chevron-right" style="color: #314577; font-size: 0.8rem;"></i>
+                        </div>
+                    `;
+                }
+                return html;
+            }
+
+            // Get user data from localStorage or use default
+            let currentUser = {
+                name: localStorage.getItem('userName') || 'User',
+                email: localStorage.getItem('userEmail') || 'Emailpengguna@gmail.com',
+                avatar: (localStorage.getItem('userName') || 'User').charAt(0).toUpperCase()
+            };
+
+            // Update UI with user data
+            function updateUserUI() {
+                document.getElementById('userName').textContent = currentUser.name;
+                document.getElementById('userEmail').textContent = currentUser.email;
+                document.getElementById('userAvatar').textContent = currentUser.avatar;
+            }
+            updateUserUI();
+
+            // Dropdown menu toggle
+            const userInfoBtn = document.getElementById('userInfoBtn');
+            const dropdownMenu = document.getElementById('dropdownMenu');
+
+            userInfoBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                dropdownMenu.classList.toggle('show');
+            });
+
+            document.addEventListener('click', () => {
+                dropdownMenu.classList.remove('show');
+            });
+
+            // Mobile menu toggle
+            const menuToggle = document.getElementById('menuToggle');
+            const sidebar = document.getElementById('sidebar');
+
+            menuToggle.addEventListener('click', () => {
+                sidebar.classList.toggle('mobile-open');
+            });
+
+            // Navigation
+            const navLinks = document.querySelectorAll('.nav-link');
+            const dynamicContent = document.getElementById('dynamicContent');
+            const pageTitle = document.getElementById('pageTitle');
+
+            // Function to show message
+            function showMessage(type, title) {
+                let icon = '';
+                let message = '';
+                if (type === 'materi') {
+                    icon = '📖';
+                    message = 'Materi akan segera tersedia.';
+                } else if (type === 'video') {
+                    icon = '🎬';
+                    message = 'Video pembelajaran akan segera hadir.';
+                } else if (type === 'quiz') {
+                    icon = '📝';
+                    message = 'Latihan soal untuk kuis ini sedang dalam pengembangan.';
+                }
+                alert(`${icon} ${title}\n\n${message}`);
+            }
+
+            // Function to navigate to page
+            function navigateTo(page) {
+                // Update active class
+                navLinks.forEach(link => {
+                    const linkPage = link.getAttribute('data-page');
+                    if (linkPage === page) {
+                        link.classList.add('active');
+                    } else {
+                        link.classList.remove('active');
+                    }
+                });
+                
+                // Update page title and content
+                if (page === 'beranda') {
+                    pageTitle.textContent = 'Dashboard';
+                    loadBerandaPage();
+                } else if (page === 'materi') {
+                    pageTitle.textContent = 'Materi Pelajaran';
+                    loadMateriPage();
+                } else if (page === 'video') {
+                    pageTitle.textContent = 'Video Pembelajaran';
+                    loadVideoPage();
+                } else if (page === 'soal') {
+                    pageTitle.textContent = 'Soal Latihan';
+                    loadSoalPage();
+                } else if (page === 'saweria') {
+                    pageTitle.textContent = 'Saweria';
+                    loadSaweriaPage();
+                }
+                
+                // Close mobile sidebar
+                if (window.innerWidth <= 768) {
+                    sidebar.classList.remove('mobile-open');
+                }
+            }
+
+            // Load Beranda Page (TANPA icon panah di preview items)
+            function loadBerandaPage() {
+                dynamicContent.innerHTML = `
+                    <div class="welcome-card">
+                        <h1>Selamat Datang, ${currentUser.name}! 👋</h1>
+                        <p>Terus semangat belajar dan raih prestasi terbaikmu!</p>
+                    </div>
+                    <div class="content-grid">
+                        <div class="content-card">
+                            <div class="card-header">
+                                <h3><i class="fas fa-book"></i> Materi Pelajaran</h3>
+                            </div>
+                            <div class="preview-grid" id="previewMateri">
+                                <div class="preview-item" data-materi="bab1"><span class="preview-title">Bab 1</span></div>
+                                <div class="preview-item" data-materi="bab2"><span class="preview-title">Bab 2</span></div>
+                                <div class="preview-item" data-materi="bab3"><span class="preview-title">Bab 3</span></div>
+                            </div>
+                            <div class="lihat-semua">
+                                <a onclick="navigateTo('materi')">Lihat Semua Materi →</a>
+                            </div>
+                        </div>
+                        <div class="content-card">
+                            <div class="card-header">
+                                <h3><i class="fas fa-video"></i> Video Pembelajaran</h3>
+                            </div>
+                            <div class="preview-grid" id="previewVideo">
+                                <div class="preview-item" data-video="bab1"><span class="preview-title">Video Bab 1</span></div>
+                                <div class="preview-item" data-video="bab2"><span class="preview-title">Video Bab 2</span></div>
+                                <div class="preview-item" data-video="bab3"><span class="preview-title">Video Bab 3</span></div>
+                            </div>
+                            <div class="lihat-semua">
+                                <a onclick="navigateTo('video')">Lihat Semua Video →</a>
+                            </div>
+                        </div>
+                        <div class="saweria-card">
+                            <i class="fas fa-coffee"></i>
+                            <h4>Dukung Kami di Saweria</h4>
+                            <p>Dukung pembelajaran gratis dengan donasi</p>
+                            <button class="btn-saweria" id="saweriaBtn">Dukung Sekarang</button>
+                        </div>
+                    </div>
+                `;
+                
+                // Attach event listeners for preview items
+                const previewMateri = document.querySelectorAll('#previewMateri .preview-item');
+                previewMateri.forEach(item => {
+                    item.addEventListener('click', (e) => {
+                        e.stopPropagation();
+                        const title = item.querySelector('.preview-title')?.textContent || 'Materi';
+                        showMessage('materi', title);
+                    });
+                });
+                
+                const previewVideo = document.querySelectorAll('#previewVideo .preview-item');
+                previewVideo.forEach(item => {
+                    item.addEventListener('click', (e) => {
+                        e.stopPropagation();
+                        const title = item.querySelector('.preview-title')?.textContent || 'Video';
+                        showMessage('video', title);
+                    });
+                });
+                
+                // Saweria button
+                const saweriaBtn = document.getElementById('saweriaBtn');
+                if (saweriaBtn) {
+                    saweriaBtn.addEventListener('click', () => {
+                        window.open('https://saweria.co/', '_blank');
+                    });
+                }
+            }
+
+            // Load Materi Page
+            function loadMateriPage() {
+                dynamicContent.innerHTML = `
+                    <div class="welcome-card">
+                        <h1>📚 Materi Pelajaran</h1>
+                        <p>Pelajari berbagai materi pembelajaran yang telah kami sediakan</p>
+                    </div>
+                    <div class="content-grid">
+                        <div class="content-card">
+                            <div class="card-header">
+                                <h3><i class="fas fa-book"></i> Daftar Materi (Bab 1 - 17)</h3>
+                            </div>
+                            <div class="item-grid" id="materiGridFull">
+                                ${generateMateriGrid()}
+                            </div>
+                        </div>
+                    </div>
+                `;
+                
+                const materiItems = document.querySelectorAll('#materiGridFull .grid-item');
+                materiItems.forEach(item => {
+                    item.addEventListener('click', () => {
+                        const title = item.querySelector('.item-title')?.textContent || 'Materi';
+                        showMessage('materi', title);
+                    });
+                });
+            }
+
+            // Load Video Page
+            function loadVideoPage() {
+                dynamicContent.innerHTML = `
+                    <div class="welcome-card">
+                        <h1>🎬 Video Pembelajaran</h1>
+                        <p>Tonton video tutorial untuk memahami materi dengan lebih mudah</p>
+                    </div>
+                    <div class="content-grid">
+                        <div class="content-card">
+                            <div class="card-header">
+                                <h3><i class="fas fa-video"></i> Playlist Video (Bab 1 - 17)</h3>
+                            </div>
+                            <div class="item-grid" id="videoGridFull">
+                                ${generateVideoGrid()}
+                            </div>
+                        </div>
+                    </div>
+                `;
+                
+                const videoItems = document.querySelectorAll('#videoGridFull .grid-item');
+                videoItems.forEach(item => {
+                    item.addEventListener('click', () => {
+                        const title = item.querySelector('.item-title')?.textContent || 'Video';
+                        showMessage('video', title);
+                    });
+                });
+            }
+
+            // Load Soal Page
+            function loadSoalPage() {
+                dynamicContent.innerHTML = `
+                    <div class="welcome-card">
+                        <h1>📝 Soal Latihan</h1>
+                        <p>Uji pemahamanmu dengan mengerjakan soal-soal latihan per bab</p>
+                    </div>
+                    <div class="content-grid">
+                        <div class="content-card">
+                            <div class="card-header">
+                                <h3><i class="fas fa-puzzle-piece"></i> Kuis Tersedia (Bab 1 - 17)</h3>
+                            </div>
+                            <div class="item-grid" id="quizGridFull">
+                                ${generateQuizGrid()}
+                            </div>
+                        </div>
+                    </div>
+                `;
+                
+                const quizItems = document.querySelectorAll('#quizGridFull .grid-item');
+                quizItems.forEach(item => {
+                    item.addEventListener('click', () => {
+                        const title = item.querySelector('.item-title')?.textContent || 'Kuis';
+                        showMessage('quiz', title);
+                    });
+                });
+            }
+
+            // Load Saweria Page
+            function loadSaweriaPage() {
+                dynamicContent.innerHTML = `
+                    <div class="welcome-card">
+                        <h1>☕ Dukung BDLearn</h1>
+                        <p>Bantu kami terus memberikan pembelajaran gratis berkualitas</p>
+                    </div>
+                    <div class="content-grid">
+                        <div class="saweria-card" style="background:linear-gradient(135deg,#314577,#4A6FA5)">
+                            <i class="fas fa-coffee"></i>
+                            <h4>Saweria</h4>
+                            <p>Scan QR Code atau klik tombol di bawah untuk donasi</p>
+                            <button class="btn-saweria" id="saweriaBtn2" style="background:#FFD700;color:#333">Donasi Sekarang</button>
+                        </div>
+                    </div>
+                `;
+                
+                const saweriaBtn2 = document.getElementById('saweriaBtn2');
+                if (saweriaBtn2) {
+                    saweriaBtn2.addEventListener('click', () => {
+                        window.open('https://saweria.co/', '_blank');
+                    });
+                }
+            }
+
+            // Make navigateTo function global for onclick
+            window.navigateTo = navigateTo;
+
+            // Set initial page (Beranda)
+            loadBerandaPage();
+
+            // Event listeners for nav links
+            navLinks.forEach(link => {
+                link.addEventListener('click', (e) => {
+                    const page = link.getAttribute('data-page');
+                    navigateTo(page);
+                });
+            });
+
+            // Logout functionality
+            const logoutBtn = document.getElementById('logoutBtn');
+            logoutBtn.addEventListener('click', () => {
+                localStorage.removeItem('userName');
+                localStorage.removeItem('userEmail');
+                window.location.href = '../BDLearn.html';
+            });
+        })();
+    </script>
+</body>
+</html>
