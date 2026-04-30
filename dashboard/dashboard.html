@@ -137,6 +137,7 @@
             border-radius: 40px;
             background: #F5F7FB;
             transition: 0.2s;
+            min-width: 0;
         }
 
         .user-info:hover {
@@ -158,17 +159,28 @@
 
         .user-details {
             text-align: right;
+            min-width: 0;
         }
 
         .user-name {
             font-weight: 700;
             font-size: 0.9rem;
             color: #1A1F36;
+            display: block;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            max-width: 140px;
         }
 
         .user-email {
             font-size: 0.75rem;
             color: #6C7A96;
+            display: block;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            max-width: 140px;
         }
 
         /* Dropdown Menu */
