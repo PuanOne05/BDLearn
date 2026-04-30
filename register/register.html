@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>BDLearn | Register</title>
+    <!-- Google Fonts + Font Awesome Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #fefefe 0%, #f0f4ff 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            position: relative;
+        }
+
+        /* Tombol Back to Home di pojok kiri atas */
+        .back-button-solid {
+            position: fixed;
+            top: 24px;
+            left: 24px;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: #2563EB;
+            color: white;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.85rem;
+            padding: 8px 16px;
+            border-radius: 40px;
+            border: none;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            box-shadow: 0 2px 8px rgba(37, 99, 235, 0.25);
+            z-index: 100;
+        }
+
+        .back-button-solid i {
+            font-size: 0.8rem;
+            transition: transform 0.3s ease;
+        }
+
+        .back-button-solid:hover {
+            background: #1D4ED8;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.35);
+        }
+
+        .back-button-solid:hover i {
+            transform: translateX(-3px);
+        }
+
+        .register-container {
+            max-width: 480px;
+            width: 100%;
+        }
+
+        .register-card {
+            background: white;
+            border-radius: 2rem;
+            padding: 48px 40px;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.15);
+        }
+
+        .register-card h1 {
+            font-size: 2rem;
+            font-weight: 800;
+            margin-bottom: 8px;
+            color: #1A1F36;
+            text-align: center;
+        }
+
+        .register-highlight {
+            background: linear-gradient(120deg, #2563EB, #38BDF8);
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+        }
+
+        .register-subtitle {
+            text-align: center;
+            color: #6C7A96;
+            margin-bottom: 32px;
+            font-size: 0.9rem;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            font-weight: 600;
+            font-size: 0.85rem;
+            margin-bottom: 8px;
+            color: #334155;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 14px 16px;
+            border: 1.5px solid #E2E8F0;
+            border-radius: 1rem;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.95rem;
+            transition: all 0.2s;
+            outline: none;
+        }
+
+        .form-group input:focus {
+            border-color: #2563EB;
+            box-shadow: 0 0 0 3px rgba(37,99,235,0.1);
+        }
+
+        .form-group input::placeholder {
+            color: #CBD5E1;
+        }
+
+        .btn-register {
+            width: 100%;
+            background: #2563EB;
+            color: white;
+            border: none;
+            padding: 14px;
+            border-radius: 1rem;
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.2s;
+            margin-top: 12px;
+        }
+
+        .btn-register:hover {
+            background: #1D4ED8;
+            transform: translateY(-2px);
+        }
+
+        .login-link {
+            text-align: center;
+            margin-top: 24px;
+            font-size: 0.85rem;
+            color: #6C7A96;
+        }
+
+        .login-link a {
+            color: #2563EB;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .login-link a:hover {
+            text-decoration: underline;
+        }
+
+        @media (max-width: 560px) {
+            .register-card {
+                padding: 32px 24px;
+            }
+            .register-card h1 {
+                font-size: 1.5rem;
+            }
+            .back-button-solid {
+                top: 16px;
+                left: 16px;
+                padding: 6px 12px;
+                font-size: 0.75rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Tombol Back to Home di pojok kiri ATAS -->
+    <a href="../BDLearn.html" class="back-button-solid">
+        <i class="fas fa-arrow-left"></i> Back
+    </a>
+
+    <div class="register-container">
+        <div class="register-card">
+            <h1>Register<span class="register-highlight"></span></h1>
+            <p class="register-subtitle">Daftar untuk memulai perjalanan belajarmu</p>
+            
+            <form id="registerForm">
+                <div class="form-group">
+                    <label>Full Name</label>
+                    <input type="text" id="fullName" placeholder="Masukkan nama lengkap" required>
+                </div>
+                <div class="form-group">
+                    <label>Email</label>
+                    <input type="email" id="email" placeholder="contoh@email.com" required>
+                </div>
+                <div class="form-group">
+                    <label>Password</label>
+                    <input type="password" id="password" placeholder="Minimal 8 karakter" required>
+                </div>
+                <div class="form-group">
+                    <label>Confirm Password</label>
+                    <input type="password" id="confirmPassword" placeholder="Konfirmasi password" required>
+                </div>
+                <button type="submit" class="btn-register">Register</button>
+            </form>
+            
+            <div class="login-link">
+                Already have an account? <a href="../login/login.html">Login</a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        (function() {
+            const registerForm = document.getElementById('registerForm');
+            
+            if(registerForm) {
+                registerForm.addEventListener('submit', (e) => {
+                    e.preventDefault();
+                    
+                    const fullName = document.getElementById('fullName').value;
+                    const email = document.getElementById('email').value;
+                    const password = document.getElementById('password').value;
+                    const confirmPassword = document.getElementById('confirmPassword').value;
+                    
+                    // Validation
+                    if(!fullName || !email || !password || !confirmPassword) {
+                        alert('Please fill in all fields');
+                        return;
+                    }
+                    
+                    if(password !== confirmPassword) {
+                        alert('Password and Confirm Password do not match!');
+                        document.getElementById('confirmPassword').style.borderColor = '#EF4444';
+                        return;
+                    }
+                    
+                    if(password.length < 8) {
+                        alert('Password must be at least 8 characters');
+                        document.getElementById('password').style.borderColor = '#EF4444';
+                        return;
+                    }
+                    
+                    // Success - demo
+                    alert(`✨ Registration successful!\nWelcome, ${fullName}!\nEmail: ${email}\n\nYou will be redirected to the home page.`);
+                    
+                    // Redirect ke BDLearn.html di folder parent
+                    window.location.href = '../BDLearn.html';
+                });
+            }
+            
+            // Reset border color on focus
+            document.querySelectorAll('.form-group input').forEach(input => {
+                input.addEventListener('focus', () => {
+                    input.style.borderColor = '#E2E8F0';
+                });
+            });
+        })();
+    </script>
+</body>
+</html>
