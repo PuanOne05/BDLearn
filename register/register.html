@@ -33,7 +33,7 @@
             display: inline-flex;
             align-items: center;
             gap: 8px;
-            background: #2563EB;
+            background: #314577;
             color: white;
             text-decoration: none;
             font-weight: 600;
@@ -43,7 +43,7 @@
             border: none;
             transition: all 0.3s ease;
             cursor: pointer;
-            box-shadow: 0 2px 8px rgba(37, 99, 235, 0.25);
+            box-shadow: 0 2px 8px rgba(49, 69, 119, 0.25);
             z-index: 100;
         }
 
@@ -53,9 +53,9 @@
         }
 
         .back-button-solid:hover {
-            background: #1D4ED8;
+            background: #25355b;
             transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.35);
+            box-shadow: 0 4px 12px rgba(49, 69, 119, 0.35);
         }
 
         .back-button-solid:hover i {
@@ -83,7 +83,7 @@
         }
 
         .register-highlight {
-            background: linear-gradient(120deg, #2563EB, #38BDF8);
+            background: linear-gradient(120deg, #314577, #4A6FA5);
             background-clip: text;
             -webkit-background-clip: text;
             color: transparent;
@@ -120,8 +120,8 @@
         }
 
         .form-group input:focus {
-            border-color: #2563EB;
-            box-shadow: 0 0 0 3px rgba(37,99,235,0.1);
+            border-color: #314577;
+            box-shadow: 0 0 0 3px rgba(49, 69, 119, 0.1);
         }
 
         .form-group input::placeholder {
@@ -130,7 +130,7 @@
 
         .btn-register {
             width: 100%;
-            background: #2563EB;
+            background: #314577;
             color: white;
             border: none;
             padding: 14px;
@@ -143,7 +143,7 @@
         }
 
         .btn-register:hover {
-            background: #1D4ED8;
+            background: #25355b;
             transform: translateY(-2px);
         }
 
@@ -155,13 +155,165 @@
         }
 
         .login-link a {
-            color: #2563EB;
+            color: #314577;
             text-decoration: none;
             font-weight: 600;
         }
 
         .login-link a:hover {
             text-decoration: underline;
+            color: #25355b;
+        }
+
+        /* ========== GLASSMORPHISM MODAL POPUP ========== */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(8px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .modal-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .modal-glass {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border-radius: 2rem;
+            padding: 48px 40px;
+            max-width: 420px;
+            width: 90%;
+            text-align: center;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            transform: scale(0.9);
+            transition: transform 0.3s ease;
+            animation: modalPopIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+        }
+
+        @keyframes modalPopIn {
+            0% {
+                transform: scale(0.7);
+                opacity: 0;
+            }
+            100% {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        .success-icon {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, #314577, #4A6FA5);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 24px auto;
+            animation: iconPop 0.5s ease-out 0.2s both;
+        }
+
+        @keyframes iconPop {
+            0% {
+                transform: scale(0);
+                opacity: 0;
+            }
+            50% {
+                transform: scale(1.2);
+            }
+            100% {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        .success-icon i {
+            font-size: 40px;
+            color: white;
+        }
+
+        .modal-glass h2 {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #1A1F36;
+            margin-bottom: 12px;
+        }
+
+        .modal-glass p {
+            color: #6C7A96;
+            font-size: 0.95rem;
+            margin-bottom: 32px;
+            line-height: 1.5;
+        }
+
+        .timer-text {
+            font-size: 0.85rem;
+            color: #6C7A96;
+            margin-bottom: 20px;
+        }
+
+        .timer-number {
+            font-weight: 800;
+            font-size: 1.1rem;
+            color: #314577;
+            display: inline-block;
+            min-width: 30px;
+        }
+
+        .modal-btn-login {
+            width: 100%;
+            background: #314577;
+            color: white;
+            border: none;
+            padding: 14px;
+            border-radius: 1rem;
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.2s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .modal-btn-login:hover {
+            background: #25355b;
+            transform: translateY(-2px);
+        }
+
+        .modal-btn-login:disabled {
+            background: #94A3B8;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        /* Ripple effect untuk tombol modal */
+        .ripple {
+            position: absolute;
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.5);
+            transform: scale(0);
+            animation: rippleAnimation 0.6s linear;
+            pointer-events: none;
+        }
+
+        @keyframes rippleAnimation {
+            to {
+                transform: scale(4);
+                opacity: 0;
+            }
         }
 
         @media (max-width: 560px) {
@@ -176,6 +328,19 @@
                 left: 16px;
                 padding: 6px 12px;
                 font-size: 0.75rem;
+            }
+            .modal-glass {
+                padding: 32px 24px;
+            }
+            .modal-glass h2 {
+                font-size: 1.5rem;
+            }
+            .success-icon {
+                width: 60px;
+                height: 60px;
+            }
+            .success-icon i {
+                font-size: 30px;
             }
         }
     </style>
@@ -208,7 +373,7 @@
                     <label>Confirm Password</label>
                     <input type="password" id="confirmPassword" placeholder="Konfirmasi password" required>
                 </div>
-                <button type="submit" class="btn-register">Register</button>
+                <button type="submit" class="btn-register" id="registerBtn">Register</button>
             </form>
             
             <div class="login-link">
@@ -217,11 +382,101 @@
         </div>
     </div>
 
+    <!-- GLASSMORPHISM MODAL POPUP -->
+    <div class="modal-overlay" id="successModal">
+        <div class="modal-glass">
+            <div class="success-icon">
+                <i class="fas fa-check-circle"></i>
+            </div>
+            <h2>Akun Kamu Berhasil Terdaftar</h2>
+            <p>Kamu bisa kembali ke halaman utama untuk Login, atau klik tombol dibawah</p>
+            <div class="timer-text">
+                <span>Redirecting in </span>
+                <span class="timer-number" id="timerCount">5</span>
+                <span> seconds...</span>
+            </div>
+            <button class="modal-btn-login" id="modalLoginBtn">
+                <i class="fas fa-sign-in-alt"></i> Login
+            </button>
+        </div>
+    </div>
+
     <script>
         (function() {
             const registerForm = document.getElementById('registerForm');
+            const modalOverlay = document.getElementById('successModal');
+            const modalLoginBtn = document.getElementById('modalLoginBtn');
+            const timerCountSpan = document.getElementById('timerCount');
             
-            if(registerForm) {
+            let countdownInterval = null;
+            let timerValue = 5;
+            let isRedirecting = false;
+            
+            // Function to show modal
+            function showModal() {
+                modalOverlay.classList.add('active');
+                startCountdown();
+            }
+            
+            // Function to start countdown timer
+            function startCountdown() {
+                timerValue = 5;
+                timerCountSpan.textContent = timerValue;
+                
+                // Disable button initially
+                modalLoginBtn.disabled = true;
+                modalLoginBtn.style.opacity = '0.6';
+                modalLoginBtn.style.cursor = 'not-allowed';
+                
+                // Clear existing interval if any
+                if (countdownInterval) {
+                    clearInterval(countdownInterval);
+                }
+                
+                // Start new countdown
+                countdownInterval = setInterval(() => {
+                    timerValue--;
+                    timerCountSpan.textContent = timerValue;
+                    
+                    if (timerValue <= 0) {
+                        clearInterval(countdownInterval);
+                        countdownInterval = null;
+                        // Enable button and redirect
+                        modalLoginBtn.disabled = false;
+                        modalLoginBtn.style.opacity = '1';
+                        modalLoginBtn.style.cursor = 'pointer';
+                        
+                        // Auto redirect after timer finishes
+                        if (!isRedirecting) {
+                            isRedirecting = true;
+                            window.location.href = '../login/login.html';
+                        }
+                    }
+                }, 1000);
+            }
+            
+            // Function to stop countdown and redirect manually
+            function redirectToLogin() {
+                if (countdownInterval) {
+                    clearInterval(countdownInterval);
+                    countdownInterval = null;
+                }
+                if (!isRedirecting) {
+                    isRedirecting = true;
+                    window.location.href = '../login/login.html';
+                }
+            }
+            
+            // Manual login button click handler
+            if (modalLoginBtn) {
+                modalLoginBtn.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    redirectToLogin();
+                });
+            }
+            
+            // Handle form submission
+            if (registerForm) {
                 registerForm.addEventListener('submit', (e) => {
                     e.preventDefault();
                     
@@ -230,29 +485,40 @@
                     const password = document.getElementById('password').value;
                     const confirmPassword = document.getElementById('confirmPassword').value;
                     
+                    // Reset border colors
+                    document.querySelectorAll('.form-group input').forEach(input => {
+                        input.style.borderColor = '#E2E8F0';
+                    });
+                    
                     // Validation
-                    if(!fullName || !email || !password || !confirmPassword) {
-                        alert('Please fill in all fields');
+                    if (!fullName || !email || !password || !confirmPassword) {
+                        alert('Harap isi semua field');
                         return;
                     }
                     
-                    if(password !== confirmPassword) {
-                        alert('Password and Confirm Password do not match!');
+                    if (password !== confirmPassword) {
+                        alert('Password dan Konfirmasi Password tidak cocok!');
                         document.getElementById('confirmPassword').style.borderColor = '#EF4444';
                         return;
                     }
                     
-                    if(password.length < 8) {
-                        alert('Password must be at least 8 characters');
+                    if (password.length < 8) {
+                        alert('Password minimal harus 8 karakter');
                         document.getElementById('password').style.borderColor = '#EF4444';
                         return;
                     }
                     
-                    // Success - demo
-                    alert(`✨ Registration successful!\nWelcome, ${fullName}!\nEmail: ${email}\n\nYou will be redirected to the home page.`);
+                    if (!email.includes('@') || !email.includes('.')) {
+                        alert('Masukkan email yang valid');
+                        document.getElementById('email').style.borderColor = '#EF4444';
+                        return;
+                    }
                     
-                    // Redirect ke BDLearn.html di folder parent
-                    window.location.href = '../BDLearn.html';
+                    // Jika validasi berhasil, tampilkan modal
+                    showModal();
+                    
+                    // Optional: Clear form after successful registration
+                    // registerForm.reset();
                 });
             }
             
@@ -261,6 +527,24 @@
                 input.addEventListener('focus', () => {
                     input.style.borderColor = '#E2E8F0';
                 });
+            });
+            
+            // Close modal when clicking outside (optional)
+            if (modalOverlay) {
+                modalOverlay.addEventListener('click', (e) => {
+                    if (e.target === modalOverlay) {
+                        // Don't close if timer is still running? Just redirect instead
+                        redirectToLogin();
+                    }
+                });
+            }
+            
+            // Prevent accidental navigation when modal is open
+            window.addEventListener('beforeunload', (e) => {
+                if (modalOverlay.classList.contains('active')) {
+                    e.preventDefault();
+                    e.returnValue = '';
+                }
             });
         })();
     </script>
