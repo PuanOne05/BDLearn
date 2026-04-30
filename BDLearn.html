@@ -242,13 +242,13 @@
             gap: 32px;
         }
 
+        /* Step card - BUKAN BUTTON, tidak ada cursor pointer */
         .step-card {
             background: white;
             border-radius: 1.5rem;
             padding: 28px 24px;
             box-shadow: 0 5px 20px rgba(0,0,0,0.02);
             transition: all 0.3s ease;
-            cursor: pointer;
             border: 2px solid #314577;
             position: relative;
         }
@@ -286,12 +286,22 @@
             font-weight: 700;
             margin-bottom: 14px;
             color: #1A1F36;
+            transition: color 0.2s ease;
+        }
+
+        .step-card:hover h3 {
+            color: #314577;
         }
 
         .step-card p {
             color: #5B677B;
             line-height: 1.5;
             font-size: 0.95rem;
+            transition: color 0.2s ease;
+        }
+
+        .step-card:hover p {
+            color: #4B5563;
         }
 
         .faq-section {
@@ -511,9 +521,15 @@
             }
         }
 
-        button, .btn-primary, .register-link, .login-link, .get-started-simple {
+        button, .btn-primary, .register-link, .login-link, .get-started-simple, .faq-question, .contact-info p {
             cursor: pointer;
         }
+        
+        /* Step card tidak memiliki cursor pointer */
+        .step-card {
+            cursor: default;
+        }
+        
         .faq-question i {
             transition: transform 0.2s;
         }
@@ -596,13 +612,13 @@
             left: 100%;
         }
         
-        /* 5. Glow pulse untuk cards */
+        /* 5. Glow pulse untuk cards - animasi untuk step card */
         @keyframes cardGlowPulse {
             0% {
-                box-shadow: 0 0 0 0 rgba(49, 69, 119, 0.1);
+                box-shadow: 0 0 0 0 rgba(49, 69, 119, 0.05);
             }
             70% {
-                box-shadow: 0 0 0 10px rgba(49, 69, 119, 0);
+                box-shadow: 0 0 0 8px rgba(49, 69, 119, 0);
             }
             100% {
                 box-shadow: 0 0 0 0 rgba(49, 69, 119, 0);
@@ -610,7 +626,7 @@
         }
         
         .step-card {
-            animation: cardGlowPulse 2s infinite;
+            animation: cardGlowPulse 3s infinite;
         }
         
         .step-card:hover {
@@ -648,7 +664,7 @@
             }
         }
         
-        /* 8. Scale hover untuk step cards */
+        /* 8. Scale hover untuk step cards - hanya visual, tidak ada cursor pointer */
         .step-card {
             transition: transform 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55), box-shadow 0.3s ease;
         }
@@ -757,19 +773,7 @@
         .faq-item:nth-child(4) { animation-delay: 0.4s; }
         
         /* 14. Logo breathing */
-        @keyframes logoBreathing {
-            0%, 100% {
-                transform: scale(1);
-                filter: drop-shadow(0 0 0px rgba(49, 69, 119, 0));
-            }
-            50% {
-                transform: scale(1.02);
-                filter: drop-shadow(0 0 8px rgba(49, 69, 119, 0.2));
-            }
-        }
-        
         .logo-image {
-            animation: logoBreathing 3s ease-in-out infinite;
             transition: all 0.3s ease;
         }
         
@@ -967,7 +971,6 @@
 
     <script>
         (function() {
-            // Ripple effect for buttons
             function createRipple(event, element) {
                 const rect = element.getBoundingClientRect();
                 const ripple = document.createElement('span');
@@ -989,7 +992,7 @@
                 }, 600);
             }
             
-            // Apply ripple to all buttons
+            // Apply ripple to all buttons (kecuali step cards)
             const buttons = document.querySelectorAll('.btn-primary, .register-link, .get-started-simple, .btn-outline, .faq-see-all a, #seeAllFaqHeaderBtn');
             buttons.forEach(button => {
                 button.addEventListener('click', (e) => {
@@ -997,7 +1000,6 @@
                 });
             });
             
-            // FAQ toggle
             const faqItems = document.querySelectorAll('.faq-item');
             faqItems.forEach(item => {
                 const questionDiv = item.querySelector('.faq-question');
@@ -1014,7 +1016,6 @@
                 });
             });
             
-            // Other button handlers
             const seeAllFaqHeader = document.getElementById('seeAllFaqHeaderBtn');
             const faqSeeAllBtn = document.getElementById('faqSeeAllBtn');
             const allFooterLinks = document.querySelectorAll('.footer-link');
@@ -1048,15 +1049,6 @@
                 });
             });
             
-            // Step cards
-            const stepCards = document.querySelectorAll('.step-card');
-            stepCards.forEach((card, idx) => { 
-                card.addEventListener('click', () => { 
-                    showDemoMessage(`Step ${idx+1} details`); 
-                }); 
-            });
-            
-            // Contact info
             const contactInfoItems = document.querySelectorAll('.contact-info p');
             contactInfoItems.forEach(item => {
                 item.addEventListener('click', () => {
